@@ -1,0 +1,15 @@
+[LOKALNIE]
+
+1. Dla każdego zadania używamy nowej gałęzi, branch per feature:
+	* łatwa praca nad kilkoma rzeczami jednocześnie
+	* wystarczy użyć git branch, aby poznać nad czym trwają prace
+	* Kolejność:
+		-> Pomysł na feature
+		-> Tworzenie gałęzi
+		-> Zaplanowanie co należy zaprogramować, każdy z tych kroków ma być oddzielnym commitem (historia pokaże tok rozumowania)
+		-> Zaprogramowanie i commity
+		-> Merge robimy z mergem commitemL git merge --no-ff [src]
+		-> Przykładowy commit msg: Added [feature] with [more inf]
+		-> Usuwanie zbędnej gałęzi
+
+2. 

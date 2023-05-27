@@ -1,0 +1,238 @@
+echo "POCZATEK ZADAN W KURSIE"
+
+#				ZADANIE 0:
+ls
+cd ..
+mkdir ws2
+cd ws2/
+git init
+touch makefile
+mkdir src
+touch src/main.c
+git commit --allow-empty
+gitk
+git status
+git add .
+git commit --amend
+vim src/main.c 
+vim makefile 
+git status
+git commit .
+git status
+
+#				ZADANIE 1:
+git log
+git tag base 087c8759
+git log
+gitk
+git show base
+git tag -a init
+git show init
+git show
+gitk
+git checkout base
+gitk
+git show
+git tag
+git tag -d base 
+cat .git/HEAD 
+git log
+gitk --all
+git checkout master 
+
+#				ZADANIE 2:
+cat .git/HEAD 
+ls .git/refs/heads/
+cat .git/refs/heads/master 
+gitk
+
+#				ZADANIE 3:
+vim .gitignore
+git status
+git add .gitignore 
+git commit
+git status
+vim src/main.c 
+#git commit . -m "dodano funkcje sumujaca w main.c"
+git status 
+git commit . -m "dodano funkcje sumujaca w main.c"
+git status
+vim src/main.c 
+git status 
+git commit . -m "wywolano funkcje sumujaca w main w main.c"
+git status 
+git show @~2
+git show @^^
+gitk
+
+#				ZADANIE 4:
+git log @~4..@^
+
+#				ZADANIE 5:
+gitk
+git rm makefile 
+ls
+git status 
+git checkout @^ -- makefile
+ls
+git status
+cat makefile 
+
+#				ZADANIE 6.1:
+git status 
+gitk
+git branch math-header
+git checkout math-header 
+mkdir include
+vim include/math.h
+git status 
+git add .
+git commit 
+git branch
+vim src/math.c
+git status 
+git add src/math.c 
+git commit 
+vim src/main.c 
+make
+git status 
+git commit .
+vim makefile 
+make
+./main 
+gitk
+git commit makefile 
+gitk
+gitk --all
+git checkout master 
+git branch 
+gitk
+gitk --all
+git merge
+git merge math-header 
+gitk
+gitk --all
+git branch -m math-header sum-in-math_h
+git branch 
+gitk --all
+
+#				ZADANIE 6.2:
+git branch 
+vim src/main.c 
+make
+./main 
+git commit src/main.c
+git branch sub-in-math_h @^
+gitk
+git branch 
+git checkout sub-in-math_h 
+git branch 
+vim include/math.h 
+git status 
+git commit include/math.h 
+gitk
+gitk --all
+vim src/math.c 
+git status 
+git commit .
+gitk
+gitk --all
+vim src/main.c 
+git status 
+git commit .
+mkdir ../cloned-repo
+cd ../cloned-repo/
+git clone ../ws2 ./
+la
+cd ws2/
+gitk
+cd ../../
+cd ws2
+gitk --all
+git checkout master 
+gitk --all
+git merge sub-in-math_h 
+vim src/main.c 
+gitk
+gitk
+git status 
+git merge --abort
+git status 
+vim src/main.c 
+vim src/math.c 
+gitk
+git checkout sub-in-math_h 
+gitk
+git reset @^
+git status
+vim src/main.c 
+git reset --hard
+git status
+vim src/main.c 
+gitk --all
+git checkout master 
+git branch 
+git merge sub-in-math_h 
+gitk
+gitk --all
+git branch -d sub-in-math_h 
+gitk --all
+git branch 
+vim src/main.c 
+vim src/math.c 
+
+#				ZADANIE 6.3:
+git branch 
+git checkout -b hello-func
+git branch 
+vim include/write.h
+git add include/write.h 
+git commit 
+vim src/write.c
+git add src/write.c 
+git commit 
+git status 
+gitk
+gitk --all
+vim src/main.c 
+git commit .
+vim makefile 
+make
+vim makefile 
+make
+./main 
+git commit .
+git status 
+git checkout master 
+git merge --no-ff hello-func 
+gitk
+gitk --all
+git branch -d hello-func 
+git branch 
+gitk --all
+
+#				ZADANIE 7:
+git checkout -b wip-readme
+vim readme
+git add readme 
+git commit 
+vim readme
+git commit .
+git status 
+gitk
+git checkout master 
+git branch 
+gitk --all
+git show wip-readme^
+git cherry-pick wip-readme^
+gitk --all
+
+#				ZADANIE 8:
+git diff master wip-readme 
+git diff --word-diff master wip-readme 
+git diff --word-diff master..wip-readme 
+git diff --word-diff master...wip-readme 
+git branch
+git branch -d wip-readme 
+git branch -D wip-readme 
+git show 5ef9246

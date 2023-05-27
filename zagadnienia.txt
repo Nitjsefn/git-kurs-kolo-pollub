@@ -1,0 +1,11 @@
+- tagi []
+- git show []
+- git show ~ i ^ []
+- git log od..do (git log od^..do) []
+- przelaczanie miedzy galeziami []
+- nadawanie galeziom nazw i numerow []
+- konwencje nadawania nazw []
+- tworzenie galezi []
+- poruszanie sie po galeziach []
+- mergowanie []
+

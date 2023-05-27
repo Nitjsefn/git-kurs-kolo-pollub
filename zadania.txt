@@ -1,0 +1,82 @@
+Ad. 0:
+	-> Zainicjalizuj repozytorium i utwórz PUSTE pliki:
+		* makefile
+		* src/main.c
+	-> Wykonaj pusty commit: "to jest pusty commit"
+	-> Zedytuj ostatni commit tak, by zawierał wszystkie utworzone pliki. Zmień commit msg
+	-> wypełnij main.c podstawowym kodem, oraz wypełnij plik makefile
+	-> Wykonaj NIE pusty commit bez użycia git add
+
+Ad. 1:
+	-> Utwórz lekki tag dla pierwszego commita o nazwie 'base' (nazwa tagu)
+	-> Wyśwetl informacje o pierwszym commicie
+	-> Utwórz tag adnotowany 'init' do drugiego commita z wiadomością: "Podstawowy makefile i main.c"
+	-> Wyświetl informacje o drugim commicie
+	-> Przeskocz do pierwszego commita nie używając SHA1 ID
+	-> Wyświetl wszystkie znaczniki
+	-> Usuń tag 'base'
+	-> Spójrz na co wskazuje HEAD w pliku .git/HEAD
+	-> Wróć do najnowszego commita, na gałąź master
+
+Ad. 2:
+	-> Zlokalizuj pliki odpowiedzialne za wskazywanie na tip obecnej gałęzi, i wszystkich innych gałęzi
+
+Ad. 3:
+	-> Utwórz plik .gitignore ignorujący plik wykonywalny - commit
+	-> W main.c dodaj funkcję sumującą ze sobą dwie liczby - commit
+	-> Wywołaj tę funkcję w main() - commit
+	-> Wyświetl informacje o commicie, który był 2 commity temu
+
+Ad. 4:
+	-> Wyświetl 3 ostatnie commity bez najnowszego commita
+
+Ad. 5:
+	-> Usuń plik makefile
+	-> Skopiuj plik makefile ze starego commita
+
+Ad. 6:
+	-> Pozbądź się funkcji z pliku main.c:
+		* Stwórz gałąź "math-header"
+		* Przełącz się na nową gałąź
+		* Utwórz plik include/math.h z deklaracją funkcji sumującej - commit
+		* Utwórz plik src/math.c z definicją funkcji sumującej - commit
+		* Wykonaj zmiany w pliku main.c - commit
+		* Zmodyfikuj makefile - commit
+		* Zanotuj SHA1 ID ostatniego commita
+		* Wykonaj FF merge gałęzi math-header z gałęzią główną
+		* Porównaj SHA1 ID najnowszego commita z zanotowanym (commit przed mergem na innej gałęzi)
+		* Zmień nazwę "math-header" na "sum-in-math_h"
+	-> Dodaj funkcję odejmującą do biblioteki math będąc na nowej gałęzi oraz jednocześnie zapętl program będąc na głównej gałęzi
+		* Zapętl funkcję main - commit
+		* Stwórz nową gałąź o nazwie "sub-in-math_h" od commita poprzedniego
+		* Przełącz się na nową gałąź
+		* Stwórz funkcję odejmującą, umieść ją w src/math.c - commit
+		* Deklarację umieść w include/math.h - commit
+		* (Powoduje konflikt) Dodaj wywołanie w main.c - commit
+		* Sklonuj do innego repo
+		* Wykonaj merge
+		* Przeskocz na sub-in-math_h i zresetuj working dir do stanu sprzed commita (pozbycie się zmian w main.c)
+		* Wykonaj merge
+		* Usuń gałąź "sub-in-math_h"
+	-> Dodaj funkcję wypisującą "Hello" na ekran
+		* Utwórz nową gałąź o nazwie "hello-func" jednocześnie się na nią przełączając
+		* Stwórz plik include/write.h i uzupełnij go - commit
+		* Stwórz plik src/write.c i uzupełnij go - commit
+		* Dodaj wywołanie w main.c - commit
+		* Zmodyfikuj makefile - commit
+		* Wykonaj merge, ale z wymuszeniem commit msg
+		* Usuń niepotrzebną gałąź
+
+Ad. 7:
+	-> Stwórz nową gałąź o nazwie "wip-readme" i przejdź na nią
+	-> Uzupełnij plik readme jakimkolwiek tekstem - commit
+	-> Zmień kilka wyrazów  w pliku readme - commit
+	-> Przejdź na główną gałąź
+	-> Skopiuj commit tworzący plik readme do obecnej gałęzi
+	-> Porównaj oba commity ze sobą
+
+Ad. 8:
+	-> Porównaj jakie słowa się zmieniły w pliku readme pomiędzy obecną gałęzią a "wip-readme"
+	-> Sprawdź efekt diff master wip-readme, diff master..wip-readme oraz diff master...wip-readme
+	-> Usuń gałąź wip-readme
+

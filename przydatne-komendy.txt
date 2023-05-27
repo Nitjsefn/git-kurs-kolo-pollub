@@ -1,0 +1,42 @@
+tagi lekkie są zapisane w .git/refs/tags
+git log --oneline --graph
+git commit . -m "" -> commituje bez potrzeby poprzedniego git add . (!! Tylko śledzone pliki)
+git diff --word-diff -> pokazuje zmiany słów zamiast zmian linii
+git branch -> tworzy galaz
+git branch -d -> usuwa galaz
+git checkout -> umieszcza stan podanego commita w Working Directory (obecnym folderze), np na stan jakiejs galezi
+git checkout - -> zmienia na poprzedni HEAD (sprawdzic co robi w przypadku zrobienia commitu, albo checkoutowania na inne commity)
+head -> wskaznik na tip (najnowszy commit w galezi)
+galezie sa w .git/refs/heads
+HEAD -> jeden konkretny commit, bedacy zrodlem aktualnej zawartosci working directory, aktualny najnowszy commit, obecny commit, aliasem jest @, .git/HEAD
+@ informuje o podawaniu parametru wstecz
+gith show @@{'15 minutes ago'} -> pokaze commit na ktorym znajdowal sie HEAD 15 minut temu
+git show HEAD@{1} -> gdzie byl HEAD 1 operacje wczesniej
+git checkout [src] -- [plik] -> pobiera jeden plik do working dir z jednego commita, podanie bez '--' tez zadziala, ale sa one na wypadek, gdyby plik nazywal sie tak samo jak galaz
+git checkout -- master -> wyjasnic co robi
+git branch -m [nowa nazwa] -> skojarzyc z move, zmienia nazwe brancha
+
+fast forward (FF) merge nie pozostawia sladow w historii, mozna go wykonac tylko gdy galaz docelowa nie posiada commitow z poza galezi zrodlowej, inaczej - na galezi docelowej nie wykonano zadnego commita od utworzenia zrodlowej galezi
+
+3-way merge:
+	
+	merguje galezie hunk po hunku
+	base - najpóźniejszy wspólny commit obu branchy
+	source - wersja do złączenia (gałąź źródłowa)
+	target - wynikowy plik (może zawierać własne zmiany), plik na gałęzi docelowej
+	
+	Algorytm:
+	1. Jeśli hunk z base jest taka sama jak w source i target -> to nic się nie dzieje
+	2. Jeśli hunk z base jest zmieniona (lub usunięta) w jednym z source albo target -> zmiany zostaja przenoszone
+	3. Jeśli hunk z base jest zmieniona (lub usunięta) w obu source i target -> konflikt (wyjątkiem jest taka sama zmiana w obu)
+
+	Mergowanie 3-way nie łączy branchy, a kopiuje stan końcowy źródłowego brancha do docelowego i zapisuje go jako nowy commit.
+
+FF merge możliwy jest tylko, gdy base == target
+
+Octopus merge:
+	Łączy więcej, niż dwie gałęzie. Zaleca się unikanie w większości projektów
+
+git cherry-pick [commit ref. - np. tag] -> kopiuje pojdyncze commity pomiedzy galeziami, SHA1 ID jest inne, bo nowy commit jest o innej godzinie i ma innego parenta. Ta komenda to tez 3-way merge ale w kontekscie jednego commita (dowiedziec sie jak dziala dokladnie)
+
+

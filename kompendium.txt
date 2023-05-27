@@ -1,0 +1,117 @@
+Ad. 0:
+	-> Istnieje możliwość wykonania pustego commitu, czyli takiego, który nie przechowuje informacji o jakichkolwiek zmianach. By tego dokonać, należy nie posiadać żadnych plików dodanych do kolejki commitowania, oraz do git commit dopisać --allow-empty
+	-> Jeśli plik jest już śledzony, to nie ma potrzeby przed każdym commitem dodawać go do kolejki commitowania. Zamiast tego można zapisać "git commit [nazwa pliku lub .]". Ta komenda scommituje zmiany w podanych ŚLEDZONYCH plikach
+	-> Jeśli popełniło się błąd w ostatnim commicie, np. nie dodano wszystkich plików, lub pojawiła się literówka w commit msg, można edytować poprzedni commit poleceniem "git commit --amend". Polecenie to, spowoduje edytowanie ostatniego commita wprowadzając zmiany dla obecnego stanu kolejki. Więc w przypadku chęci dodania koloejnych plików do ostatniego commita, przed samą jego edycją należy dodać pliki do śledzenia poprzez "git add". UWAGA: Należy być ostrożnym i zawsze podać dwa '-', gdyż w przypadku jednego polecenie "git commit" uzna "am" za oddzielne flagi (przełączniki). Flaga 'm' pozwala na podanie commit msg inline, zatem zamiast wyedytować ostatni commit stworzymy kolejny z wiadomością "end", co uniemożliwi poprawienie niechcianego commita tą metodą, gdyż nie będzie już ostatnim commitem
+
+Ad. 1:
+	-> Tagi to znaczniki/etykiety, które są statyczne tj. nie zmieniają swojego położenia, a zostają w miejscu, w którym je zostawiliśmy. Można je przypisać do konkretnego commita.
+	-> Są dwa rodzaje tagów:
+		* lekkie
+		* adnotowane
+	-> Tagi lekkie są jedynie wskaźnikiem na commit, posiadają tylko nazwę
+	-> Tagi adnotowane poza wskaźnikiem, oraz nazwą przechowują takie informacje jak:
+		* tag msg
+		* autor taga
+		* data utworzenia taga
+	-> Tworzenie taga lekkiego: "git tag [nazwa taga] [commit ref]"
+	-> Tworzenie taga adnotowanego odbywa się w podobny spobób: "git tag -a [nazwa taga] [commit ref]"
+	-> Tagów można używać jako referencji do commita zamiast samego SHA1 ID
+	-> Zaleca się używanie tylko tagów adnotowanych z dwoma wyjątkami:
+		* tworzenie tagów jest zautomatyzowane, lub służą do oznaczania wersji
+		* tworzymy tag chwilowy z zamiarem usunięcia go w niedalekiej przyszłości
+	-> Aby odczytać tag msg należy użyć komendy: "git show [nazwa tagu]", lub kliknąć w tag w programie gitk
+	-> Tagi można wylistować komendą: "git tag"
+	-> Tag można usunąć komendą: "git tag -d [nazwa]"
+	-> Komendę "git checkout [commit ref]" używa się w celu odłączenia HEAD i przeskoczenia na inny commit. Jako referencji można użyć nazwę taga.UWAGA! Przeskoczenie na starszy commit nie powoduje usunięcia się nowszych commitów. One dalej istnieją, nawet jeśli ich SHA1 ID nie jest do niczego przywiązane, my nie wiemy jak wrócić.
+
+Ad. 2:
+	-> Working directory, lub working copy to inne określenia obecnego stanu repozytorium lokalnego. Odnosi się bezpośrednio do plików, które obecnie są zapisane na dysku. Kiedy dokonujemy zmian w jakimś pliku np. main.c, to dokonujemy zmian w working directory. Ten termin pojawia się m.in. ze względu na możliwść zmiany stanu working copy poprzez zmianę commita, na który wskazuje HEAD
+	-> Tip to inaczej najnowszy commit w danej gałęzi
+	-> head to wskaźnik na tip gałęzi. Może być więcej niż jeden. Wszystkie head'y znajdują się w katalogu: ".git/refs/heads/". Wewnątrz znajdują się pliki, których nazwy pochodzą od nazw gałęzi, i przechowują SHA1 ID tip'a.
+	-> HEAD w uproszczeniu wskazuje na obecny stan working copy. W uproszczeniu, gdyż wskazuje na commit, lub gałąź, a nie przemieszcza się przy każdorazowej zmianie dokonanej w plikach. Wskazuje na ostatni commit/gałąź na której byliśmy.
+	-> Polecenie "git checkout [ref]" zajmuje się przemieszczaniem HEAD. Zamiast referencji można podać '-', co spowoduje powrót na ostatnią pozycję.
+	-> Jeśli zmienimy pozycję HEAD, zmieni się równierz stan working copy
+	-> Jest tylko jeden HEAD, i znajduje się on w pliku ".git/HEAD"
+	-> Aliasem dla HEAD jest '@'
+
+Ad. 3:
+	-> Referowanie do commitów poprzez SHA1 ID lub tagi jest referowaniem bezwględnym.
+	-> Referowanie może odbywać się względnie
+	-> Znak '^' umieszczony po referencji bezwzględnej referuje do commita o 1 wcześniejszego. Powtórzenie tego znaku sprawia referowanie się o 2 commity poprzednie (w tej samej gałęzi)
+	-> Inną metodą jest "[ref bezwględna]~3". Referuje do commita o 3 commity wcześniejszego (w tej samej gałęzi)
+	-> [ref]^^^^ == [ref]~4
+	-> [ref]@{x} -> referuje do commita, który informował o stanie HEAD x operacji temu (w tej samej gałęzi)
+	-> [ref]@{'10 minutes ago'} -> referuje do commita, na którego wskazywał HEAD 10 minut wcześniej
+	-> "git show [ref]" wyświetla informacje o referencji (np. tag, commit)
+
+Ad. 4:
+	-> "git log" wyświetla commity istniejące na obecnej gałęzi
+	-> Zakres można ograniczyć poprzez podanie flagi "-n x", gdzie x to ilość elementów lub poprzez podane referencji
+	-> "git log od..do" np. "git log @~5..@^^^"
+	-> Flaga --oneline zmniejsz ilość wyświetlancyh informacji, dzięki czemu są one bardziej czytelne
+	-> Flaga --graph rysuje graf podobny do tego, co rysuje polecenie "gitk"
+
+Ad. 5:
+	-> "git checkout" pozwala nie tylko na przemieszczanie HEAD'a po różnych commitach, ale również przenoszenie plików z innych commitów do obecnego
+	-> "git checkout [ref] -- [plik]" skopiuje [plik] z commita [ref] do naszeo obecnego working directory
+	-> "--" są potrzebne na wypadek, gdyby [plik] miał taką samą nazwę jak gałąź
+
+Ad. 6:
+	-> Każdy commit ma informację o swoim rodzicu/poprzedniku (poza pierwszym). Gałąź to zbiór commitów powiązanych ze sobą właśnie poprzez rodzicielstwo. Nazwa gałęzi wskazuje na najnowszy element w gałęzi tj. commit, a poprzedni element gałęzi jest rodzicem obecnego. Zazwyczaj commit ma jednego rodzica, ale czasami (w wyniku operacji merge) commit może mieć ich wielu. Jednak na koniec wszyskie te rozgałęzienia zbiegną się w jednym commicie, który jest pierwszym commitem w repozytorium. Różne gałęzie mogą mieć wiele wspólnych części, gdyż jedynym warunkiem bycia częścią gałęzi jest bycie rodzicem commita będącego na gałęzi, a taki commit może mieć wiele potomków będących częściami różnych gałęzi.
+	-> Kiedy jesteśmy na jakiejś gałęzi i wykonujemy commit, to jest on automatycznie dodawany jako nowy tip obecnej gałęzi.
+	-> Odgałęzić można się od konkretnego commita, co spowoduje utworzenie nowej gałęzi, która do utworzenia kolejnego commita, tip będzie miała na commicie, od którego się odgałęzia.
+	-> "git branch" wypisuje wszystkie gałęzie, oraz oznacza obecną
+	-> "git branch [nazwa] [ref]" - tworzy gałąź o nazwie [nazwa], odgałęziającą się od [ref]. Pominięcie [ref] tworzy odgałęzienie w HEAD
+	-> "git branch -m [nazwa_stara] [nazwa_nowa]" - zmienia nazwę brancha. Pominięcie starej nazwy zmienia nazwę obecnego brancha
+	-> "git branch -d [nazwa]" - Usuwa gałąź
+	-> "git branch -D [nazwa]" - Wymusza usunięcie gałęzi [nazwa]
+	-> "git checkout [nazwa]" - Przełącza obecną gałąź na [nazwa]
+	-> "git checkout -b [nazwa]" - Tworzy gałąź [nazwa] i przełącza się na nią
+	-> Merge:
+		* To połączenie ze sobą dwóch lub więcej gałęzi, a będąc dokładnym to połączenie ich najnowszych migawek.
+	-> Są 2 podstawowe sposoby łączenia gałęzi:
+		* Fast Forward (FF)
+		* 3-way algorithm
+	-> Fast Forward merge można wykonać tylko wtedy, kiedy gałąź docelowa nie ma żadnych zmian od miejsca rozgałęzienia; gałąź docelowa nie posiada commitów z poza gałęzi źródłowej; na gałęźi docelowej nie wykonano, żadnego commita od utworzenia źródłowej gałęzi (rózne sposoby przedstawienia tego samego)
+	-> Łączenie FF polega na tym, że commity gałęźi dołączanej stają się commitami gałęzi docelowej. W praktyce można to sobie wyobrazić jako przesuwanie wskażnika na gałąź docelową, aż na szczyt gałęźi dołączanej. Nie pozostawia śladów w historii
+	-> 3-way algorithm:
+		* Pozwala na łączenie 2 gałęzi, nawet jeśli obie wprowadzają zmiany
+		* Łączy ze sobą dwie gałęzie hunk po hunku
+		* Podstawowe pojęcia:
+			. hunk - grupa takich linii w pliku, które wprowadzają zmiany względem innej wersji tego pliku. Plik binarny jest jednym hunkiem
+			. base - ostatni wspólny commit dwóch gałęzi
+			. source - wersja do złączenia na gałęzi dołączanej
+			. target - wersja na gałęzi docelowej
+		* Kroki: 
+			. Jeśli hunk z base jest taki sam jak w source i target -> to nic się nie dzieje
+			. Jeśli hunk z base jest zmieniony (lub usunięty) w jednym z source albo target -> zmiany zostaja przenoszone
+			. Jeśli hunk z base jest zmieniony (lub usunięty) w obu source i target -> konflikt (wyjątkiem jest taka sama zmiana w obu)
+		* Jeśli nie wystąpiły konflikty, to na gałęzi docelowej powstaje nowy commit, który ma dwóch rodziców (target, source). Gałąź źródłowa się nie zmienia, dalej wskazuje na to samo miejsce co przed mergem, a jedynie potomkiem tipa jest commit zwany merge commitem
+	-> Rodzaje łączenia w Git:
+		* Fast Forward
+		* Resolve - podstawowy 3-way merge
+		* Rekurencyjne i ORT (Ostensibly Recursive's Twin) - jeśli gałęzie mają więcej niż jednego wspólnego przodka, jest tworzone ich drzewo, któro potem jest używane jako drzewo referencyjne dla 3-way merge. Skutkuje to mniejszą ilością konfliktów. Domyślna strategia łączenia
+		* Ours - ignoruje zmiany wprowadzone w innych gałęziach, pozwala na łączenie nieograniczonej liczby gałęzi
+		* Subtree - zmodyfikowana strategia ORT. Jeśli jedna gałąź odpowiada części drugiej gałęzi, to ta pierwsza jest dostosowywana tak, by przystawała do części drugiej
+		* Octopus - służy do łączenia więcej niż 2 gałęzi. Jej stosowanie jest nie zalecane w większości sytuacji. Powinna być używana tylko jeśli nie ma konfliktów, albo są bardzo łatwo rozwiązywalne ręcznie
+	-> Git samodzielnie dobiera strategie w zależności od sytuacji, jeśli zawiedzie jedna, to sprawdza inną, jednak istnieje możliwość wymuszenia konkretnej strategii. Służy do tego flaga "-s [strategia]"
+	-> Flaga "-X[opcje dla strategii]" umożliwia przekazanie parametrów do strategii
+	-> Merge sprawdza tylko stan plików w ostatnich commitach gałęzi, więc w przypadku scommitowania pewnej zmiany, a w następnym commicie cofnięcie jej jest zauważane jako brak jakiejkolwiek zmiany, gdyż stan pliku jest taki sam jak w base
+	-> FF ma miejsce tylko jeśli base == target
+	-> Zazwyczaj lepszym wyborem jest wykonanie łączenia tworzącego commit, jednak jeśli base == target, to strategią jaką zastosuje git jest Fast Forward. Do pominięcia tej strategii służy flaga "--no-ff"
+	-> Zalecaną praktyką dla pracy lokalnej jest tworzenie nowych gałęzi dla każdego nowego feature'u. Nie tylko zwiększy to czytelność kodu, ale również umożliwi tworzenie kilku jednocześnie. Szczegółowe informacje są w pliku workflow.txt
+	-> Nazwy gałęzi nie powinny być zbyt długie, ale powinny też informować do czego gałąź służy
+
+Ad. 7:
+	-> Git umożliwia kopiowanie pojedynczych commitów z innych gałęzi na obecną. Taki skopiowany commit pojawia się na obecnej gałęzi jako nowy commit, ale wprowadzający te same zmiany co commit, z którego skopiowaliśmy (zatem SHA1 ID się różni)
+	-> Umożliwia to polecenie "git cherry-pick [commit ref]"
+
+Ad. 8:
+	-> Polecenie git diff wyświetla róznice pomiędzy dwoma gałęziami
+	-> Podanie "[nazwa1]..[nazwa2]" porówna gałąź 1 z gałęzią 2
+	-> Polecenie "[nazwa1]...[nazwa2]" porówna gałąź 2 z base tych dwóch gałęzi
+	-> Flaga "--word-diff" spowoduje wyświetlenie porównania wyrazów zamiast linii
+
+Ad. 9:
+	-> Ciekawostka: https://lkml.org/lkml/2014/1/21/361
+

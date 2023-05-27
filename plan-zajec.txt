@@ -1,0 +1,69 @@
+0. Uzupełnienie poprzednich zajęć:
+	-> commit --allow-empty
+	-> commit .
+	-> commit --amend
+
+1. Wytłumaczenie czym są tagi:
+	-> tagi lekkie
+	-> tagi adnotowane
+	-> dobra praktyka: tagi lekkie tworzone tylko, jeśli ich istnienie jest chwilowe, lub ich tworzenie jest zautomatyzowane (np. numery wersji)
+	-> git show jako sposób na odczytanie tag msg
+	-> git checkout jako sposób na skakanie na tagi
+	-> git checkout - jako powrót na ostatni commit
+
+2. Working Dir, HEAD oraz head:
+	-> working directory/copy - obecny stan plików w repo, np. zmieniając obecne commity, zmieniamy zawartość working dir
+	-> tip - najmłodszy, najnowszy commit w każdej gałęzi
+	-> head jako wskaźniki na wszystkie tipy - ./.git/refs/heads/
+	-> HEAD wskazuje na TYLKO JEDEN commit, będący źródłem aktualnej zawartości working dir, obecny commit,  - ./.git/HEAD
+	-> alias dla HEAD to @
+
+3. Referencje względne do commitów: '~' i '^' oraz '@':
+	-> git show [ref]^^
+	-> git show [ref]~2
+	-> git show [ref]@{2}
+	-> git show [ref]@{'10 minutes ago'}
+
+4. Ograniczanie git log:
+	-> git log od..do --oneline
+	-> git log @^^..@ --oneline
+
+5. Zaciąganie pojedynczych plików z innych commitów do working dir:
+	-> git checkout [src] -- [plik] - '--' zabezpiecza przed sytuacją, w której plik ma taką samą nazwę jak gałąź
+
+6. Gałęzie:
+	-> Czym są gałęzie
+	-> git branch - listowanie wszystkich gałęzi
+	-> git branch [nazwa] - tworzenie gałęzi (odgałęzianie) od HEAD (gałąź będzie wskazywać na HEAD)
+	-> git branch [nazwa] [ref] - tworzenie gałęzi od referencji (wskazuje na commit z referencji)
+	-> git branch -m [nowa nazwa] - zmienia nazwę obecnego brancha
+	-> git checkout [ref] - umożliwia zmianę obecnego brancha na ref
+	-> Czym jest merge
+	-> 3 way merge algorithm:
+		* hunk
+		* base, target, source
+		* kroki algorytmu
+		* efekt końcowy
+		* inf. o tym, że merge sprawdza tylko ostateczny stan gałęzi, więc stworzenie pliku na dwóch gałęziach i usunięcie go na jednej nie spowoduje konfliktu
+	-> Rodzaje mergy:
+		* Fast forward
+		* Rekurencyjny i ort (Ostensibly Recursive's Twin)
+		* Ours
+		* Subtree
+		* Octopus
+		* Resolve
+	-> Wymuszanie strategii: git merge -s [strategia] -X[opcje dla strategii]
+	-> Merge - praktyka
+	-> Zignorowanie strategii FF podczas merge: git merge --no-ff
+	-> Usuwanie branchy
+	-> Konwencje nazw dla branchy
+	-> Zalecana praktyka pracy lokalnej
+
+7. Kopiowanie pojedynczych commitów do obecnego brancha:
+	-> git cherry-pick [commit ref]
+
+8. git diff:
+	-> --word-diff
+	-> lekkie wtrącenie o branch1..branch2 i branch1...branch2
+
+9. Cthulu merge

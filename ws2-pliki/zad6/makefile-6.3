@@ -1,0 +1,4 @@
+.SUFFIXES: .c
+vpath %.c ./src
+main: main.c math.c write.c
+	gcc $? -Iinclude -o $@
